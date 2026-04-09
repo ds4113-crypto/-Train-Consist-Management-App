@@ -1,5 +1,5 @@
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TrainConsistApp {
 
@@ -9,28 +9,29 @@ public class TrainConsistApp {
         System.out.println("=== Train Consist Management App ===");
 
         // =========================
-        // UC5: LinkedHashSet (Ordered + Unique)
+        // UC6: Bogie → Capacity Mapping
         // =========================
 
-        // Create LinkedHashSet for train formation
-        Set<String> trainFormation = new LinkedHashSet<>();
+        // Create HashMap (Bogie Name → Capacity)
+        Map<String, Integer> bogieCapacityMap = new HashMap<>();
 
-        // 🚆 Add bogies (insertion order maintained)
-        trainFormation.add("Engine");
-        trainFormation.add("Sleeper");
-        trainFormation.add("Cargo");
-        trainFormation.add("Guard");
+        // 🚆 Insert bogie capacities
+        bogieCapacityMap.put("Sleeper", 72);
+        bogieCapacityMap.put("AC Chair", 60);
+        bogieCapacityMap.put("First Class", 24);
 
-        // ❗ Attempt to add duplicate
-        trainFormation.add("Sleeper"); // duplicate (ignored)
+        // 📋 Display bogie capacities
+        System.out.println("\nBogie Capacity Details:");
 
-        // 📋 Display final formation
-        System.out.println("\nFinal Train Formation (No duplicates, ordered):");
-        System.out.println(trainFormation);
+        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
+            String bogie = entry.getKey();
+            int capacity = entry.getValue();
 
-        // Total bogies
-        System.out.println("\nTotal bogies: " + trainFormation.size());
+            System.out.println(bogie + " -> Capacity: " + capacity);
+        }
 
-        System.out.println("\nSystem preserves order and prevents duplicates.");
+        System.out.println("\nTotal bogie types: " + bogieCapacityMap.size());
+
+        System.out.println("\nSystem supports capacity mapping and fast lookup.");
     }
 }
