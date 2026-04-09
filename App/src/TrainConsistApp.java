@@ -1,8 +1,7 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
-// 🚆 Bogie Class (same as UC7)
+// 🚆 Bogie Class
 class Bogie {
     String name;
     int capacity;
@@ -24,15 +23,16 @@ public class TrainConsistApp {
         System.out.println("=== Train Consist Management App ===");
 
         // =========================
-        // UC8: Stream Filtering
+        // UC9: Grouping Bogies by Type
         // =========================
 
-        // Create bogie list (same as UC7)
+        // Create bogie list
         List<Bogie> bogies = new ArrayList<>();
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("Sleeper", 70));      // duplicate type
         bogies.add(new Bogie("First Class", 24));
-        bogies.add(new Bogie("Luxury AC", 80));
+        bogies.add(new Bogie("AC Chair", 60));     // duplicate type
 
         // Display original list
         System.out.println("\nOriginal Bogie List:");
@@ -40,23 +40,22 @@ public class TrainConsistApp {
             System.out.println(b);
         }
 
-        // 🔍 Filter bogies with capacity > 60
-        List<Bogie> filteredBogies = bogies.stream()
-                .filter(b -> b.capacity > 60)
-                .collect(Collectors.toList());
+        // 🔗 Group bogies by type (name)
+        Map<String, List<Bogie>> groupedBogies = bogies.stream()
+                .collect(Collectors.groupingBy(b -> b.name));
 
-        // Display filtered list
-        System.out.println("\nFiltered Bogies (Capacity > 60):");
-        for (Bogie b : filteredBogies) {
-            System.out.println(b);
+        // 📊 Display grouped result
+        System.out.println("\nGrouped Bogies by Type:");
+        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
         }
 
         // Verify original list unchanged
-        System.out.println("\nOriginal List After Filtering (Unchanged):");
+        System.out.println("\nOriginal List After Grouping (Unchanged):");
         for (Bogie b : bogies) {
             System.out.println(b);
         }
 
-        System.out.println("\nStream filtering completed successfully.");
+        System.out.println("\nGrouping completed successfully.");
     }
 }
